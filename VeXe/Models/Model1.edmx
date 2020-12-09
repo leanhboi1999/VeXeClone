@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="vexeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ghe">
+          <Key>
+            <PropertyRef Name="maghe" />
+          </Key>
+          <Property Name="maghe" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="soghe" Type="int" />
+          <Property Name="maxe" Type="varchar" MaxLength="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Khachhang">
+          <Key>
+            <PropertyRef Name="makh" />
+          </Key>
+          <Property Name="makh" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="tenkh" Type="nvarchar" MaxLength="50" />
+          <Property Name="sdt" Type="varchar" MaxLength="15" />
+          <Property Name="email" Type="varchar" MaxLength="20" />
+          <Property Name="diachi" Type="nvarchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="Lotrinh">
+          <Key>
+            <PropertyRef Name="malotrinh" />
+          </Key>
+          <Property Name="malotrinh" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="maxe" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="matuyen" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="thoigian" Type="datetime" />
+          <Property Name="gia" Type="money" />
+        </EntityType>
+        <EntityType Name="Tuyen">
+          <Key>
+            <PropertyRef Name="matuyen" />
+          </Key>
+          <Property Name="matuyen" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="noibatdau" Type="nvarchar" MaxLength="50" />
+          <Property Name="noiketthuc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Ve">
+          <Key>
+            <PropertyRef Name="mave" />
+          </Key>
+          <Property Name="mave" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="maghe" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="malotrinh" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="makh" Type="varchar" MaxLength="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Xe">
+          <Key>
+            <PropertyRef Name="maxe" />
+          </Key>
+          <Property Name="maxe" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="bienso" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Ghe_Xe">
+          <End Role="Xe" Type="Self.Xe" Multiplicity="1" />
+          <End Role="Ghe" Type="Self.Ghe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Xe">
+              <PropertyRef Name="maxe" />
+            </Principal>
+            <Dependent Role="Ghe">
+              <PropertyRef Name="maxe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotrinh_Tuyen">
+          <End Role="Tuyen" Type="Self.Tuyen" Multiplicity="1" />
+          <End Role="Lotrinh" Type="Self.Lotrinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tuyen">
+              <PropertyRef Name="matuyen" />
+            </Principal>
+            <Dependent Role="Lotrinh">
+              <PropertyRef Name="matuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotrinh_Xe">
+          <End Role="Xe" Type="Self.Xe" Multiplicity="1" />
+          <End Role="Lotrinh" Type="Self.Lotrinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Xe">
+              <PropertyRef Name="maxe" />
+            </Principal>
+            <Dependent Role="Lotrinh">
+              <PropertyRef Name="maxe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ve_Ghe">
+          <End Role="Ghe" Type="Self.Ghe" Multiplicity="1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ghe">
+              <PropertyRef Name="maghe" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="maghe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ve_Khachhang">
+          <End Role="Khachhang" Type="Self.Khachhang" Multiplicity="1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khachhang">
+              <PropertyRef Name="makh" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="makh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ve_Lotrinh">
+          <End Role="Lotrinh" Type="Self.Lotrinh" Multiplicity="1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lotrinh">
+              <PropertyRef Name="malotrinh" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="malotrinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vexeModelStoreContainer">
+          <EntitySet Name="Ghe" EntityType="Self.Ghe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Khachhang" EntityType="Self.Khachhang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lotrinh" EntityType="Self.Lotrinh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tuyen" EntityType="Self.Tuyen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Xe" EntityType="Self.Xe" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ghe_Xe" Association="Self.FK_Ghe_Xe">
+            <End Role="Xe" EntitySet="Xe" />
+            <End Role="Ghe" EntitySet="Ghe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotrinh_Tuyen" Association="Self.FK_Lotrinh_Tuyen">
+            <End Role="Tuyen" EntitySet="Tuyen" />
+            <End Role="Lotrinh" EntitySet="Lotrinh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotrinh_Xe" Association="Self.FK_Lotrinh_Xe">
+            <End Role="Xe" EntitySet="Xe" />
+            <End Role="Lotrinh" EntitySet="Lotrinh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ve_Ghe" Association="Self.FK_Ve_Ghe">
+            <End Role="Ghe" EntitySet="Ghe" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ve_Khachhang" Association="Self.FK_Ve_Khachhang">
+            <End Role="Khachhang" EntitySet="Khachhang" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ve_Lotrinh" Association="Self.FK_Ve_Lotrinh">
+            <End Role="Lotrinh" EntitySet="Lotrinh" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="vexeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ghe">
+          <Key>
+            <PropertyRef Name="maghe" />
+          </Key>
+          <Property Name="maghe" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="soghe" Type="Int32" />
+          <Property Name="maxe" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Xe" Relationship="Self.FK_Ghe_Xe" FromRole="Ghe" ToRole="Xe" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK_Ve_Ghe" FromRole="Ghe" ToRole="Ve" />
+        </EntityType>
+        <EntityType Name="Khachhang">
+          <Key>
+            <PropertyRef Name="makh" />
+          </Key>
+          <Property Name="makh" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tenkh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sdt" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="diachi" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK_Ve_Khachhang" FromRole="Khachhang" ToRole="Ve" />
+        </EntityType>
+        <EntityType Name="Lotrinh">
+          <Key>
+            <PropertyRef Name="malotrinh" />
+          </Key>
+          <Property Name="malotrinh" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maxe" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="matuyen" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="thoigian" Type="DateTime" Precision="3" />
+          <Property Name="gia" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Tuyen" Relationship="Self.FK_Lotrinh_Tuyen" FromRole="Lotrinh" ToRole="Tuyen" />
+          <NavigationProperty Name="Xe" Relationship="Self.FK_Lotrinh_Xe" FromRole="Lotrinh" ToRole="Xe" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK_Ve_Lotrinh" FromRole="Lotrinh" ToRole="Ve" />
+        </EntityType>
+        <EntityType Name="Tuyen">
+          <Key>
+            <PropertyRef Name="matuyen" />
+          </Key>
+          <Property Name="matuyen" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="noibatdau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="noiketthuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lotrinhs" Relationship="Self.FK_Lotrinh_Tuyen" FromRole="Tuyen" ToRole="Lotrinh" />
+        </EntityType>
+        <EntityType Name="Ve">
+          <Key>
+            <PropertyRef Name="mave" />
+          </Key>
+          <Property Name="mave" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maghe" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="malotrinh" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="makh" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ghe" Relationship="Self.FK_Ve_Ghe" FromRole="Ve" ToRole="Ghe" />
+          <NavigationProperty Name="Khachhang" Relationship="Self.FK_Ve_Khachhang" FromRole="Ve" ToRole="Khachhang" />
+          <NavigationProperty Name="Lotrinh" Relationship="Self.FK_Ve_Lotrinh" FromRole="Ve" ToRole="Lotrinh" />
+        </EntityType>
+        <EntityType Name="Xe">
+          <Key>
+            <PropertyRef Name="maxe" />
+          </Key>
+          <Property Name="maxe" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bienso" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Ghes" Relationship="Self.FK_Ghe_Xe" FromRole="Xe" ToRole="Ghe" />
+          <NavigationProperty Name="Lotrinhs" Relationship="Self.FK_Lotrinh_Xe" FromRole="Xe" ToRole="Lotrinh" />
+        </EntityType>
+        <Association Name="FK_Ghe_Xe">
+          <End Role="Xe" Type="Self.Xe" Multiplicity="1" />
+          <End Role="Ghe" Type="Self.Ghe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Xe">
+              <PropertyRef Name="maxe" />
+            </Principal>
+            <Dependent Role="Ghe">
+              <PropertyRef Name="maxe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ve_Ghe">
+          <End Role="Ghe" Type="Self.Ghe" Multiplicity="1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ghe">
+              <PropertyRef Name="maghe" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="maghe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ve_Khachhang">
+          <End Role="Khachhang" Type="Self.Khachhang" Multiplicity="1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khachhang">
+              <PropertyRef Name="makh" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="makh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotrinh_Tuyen">
+          <End Role="Tuyen" Type="Self.Tuyen" Multiplicity="1" />
+          <End Role="Lotrinh" Type="Self.Lotrinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tuyen">
+              <PropertyRef Name="matuyen" />
+            </Principal>
+            <Dependent Role="Lotrinh">
+              <PropertyRef Name="matuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotrinh_Xe">
+          <End Role="Xe" Type="Self.Xe" Multiplicity="1" />
+          <End Role="Lotrinh" Type="Self.Lotrinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Xe">
+              <PropertyRef Name="maxe" />
+            </Principal>
+            <Dependent Role="Lotrinh">
+              <PropertyRef Name="maxe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ve_Lotrinh">
+          <End Role="Lotrinh" Type="Self.Lotrinh" Multiplicity="1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lotrinh">
+              <PropertyRef Name="malotrinh" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="malotrinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vexeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ghes" EntityType="Self.Ghe" />
+          <EntitySet Name="Khachhangs" EntityType="Self.Khachhang" />
+          <EntitySet Name="Lotrinhs" EntityType="Self.Lotrinh" />
+          <EntitySet Name="Tuyens" EntityType="Self.Tuyen" />
+          <EntitySet Name="Ves" EntityType="Self.Ve" />
+          <EntitySet Name="Xes" EntityType="Self.Xe" />
+          <AssociationSet Name="FK_Ghe_Xe" Association="Self.FK_Ghe_Xe">
+            <End Role="Xe" EntitySet="Xes" />
+            <End Role="Ghe" EntitySet="Ghes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ve_Ghe" Association="Self.FK_Ve_Ghe">
+            <End Role="Ghe" EntitySet="Ghes" />
+            <End Role="Ve" EntitySet="Ves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ve_Khachhang" Association="Self.FK_Ve_Khachhang">
+            <End Role="Khachhang" EntitySet="Khachhangs" />
+            <End Role="Ve" EntitySet="Ves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotrinh_Tuyen" Association="Self.FK_Lotrinh_Tuyen">
+            <End Role="Tuyen" EntitySet="Tuyens" />
+            <End Role="Lotrinh" EntitySet="Lotrinhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotrinh_Xe" Association="Self.FK_Lotrinh_Xe">
+            <End Role="Xe" EntitySet="Xes" />
+            <End Role="Lotrinh" EntitySet="Lotrinhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ve_Lotrinh" Association="Self.FK_Ve_Lotrinh">
+            <End Role="Lotrinh" EntitySet="Lotrinhs" />
+            <End Role="Ve" EntitySet="Ves" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="vexeModelStoreContainer" CdmEntityContainer="vexeEntities">
+          <EntitySetMapping Name="Ghes">
+            <EntityTypeMapping TypeName="vexeModel.Ghe">
+              <MappingFragment StoreEntitySet="Ghe">
+                <ScalarProperty Name="maghe" ColumnName="maghe" />
+                <ScalarProperty Name="soghe" ColumnName="soghe" />
+                <ScalarProperty Name="maxe" ColumnName="maxe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Khachhangs">
+            <EntityTypeMapping TypeName="vexeModel.Khachhang">
+              <MappingFragment StoreEntitySet="Khachhang">
+                <ScalarProperty Name="makh" ColumnName="makh" />
+                <ScalarProperty Name="tenkh" ColumnName="tenkh" />
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lotrinhs">
+            <EntityTypeMapping TypeName="vexeModel.Lotrinh">
+              <MappingFragment StoreEntitySet="Lotrinh">
+                <ScalarProperty Name="malotrinh" ColumnName="malotrinh" />
+                <ScalarProperty Name="maxe" ColumnName="maxe" />
+                <ScalarProperty Name="matuyen" ColumnName="matuyen" />
+                <ScalarProperty Name="thoigian" ColumnName="thoigian" />
+                <ScalarProperty Name="gia" ColumnName="gia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tuyens">
+            <EntityTypeMapping TypeName="vexeModel.Tuyen">
+              <MappingFragment StoreEntitySet="Tuyen">
+                <ScalarProperty Name="matuyen" ColumnName="matuyen" />
+                <ScalarProperty Name="noibatdau" ColumnName="noibatdau" />
+                <ScalarProperty Name="noiketthuc" ColumnName="noiketthuc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ves">
+            <EntityTypeMapping TypeName="vexeModel.Ve">
+              <MappingFragment StoreEntitySet="Ve">
+                <ScalarProperty Name="mave" ColumnName="mave" />
+                <ScalarProperty Name="maghe" ColumnName="maghe" />
+                <ScalarProperty Name="malotrinh" ColumnName="malotrinh" />
+                <ScalarProperty Name="makh" ColumnName="makh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Xes">
+            <EntityTypeMapping TypeName="vexeModel.Xe">
+              <MappingFragment StoreEntitySet="Xe">
+                <ScalarProperty Name="maxe" ColumnName="maxe" />
+                <ScalarProperty Name="bienso" ColumnName="bienso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
