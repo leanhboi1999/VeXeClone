@@ -12,7 +12,8 @@ namespace VeXe
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using VeXe.Models;
+
     public partial class vexeEntities : DbContext
     {
         public vexeEntities()
